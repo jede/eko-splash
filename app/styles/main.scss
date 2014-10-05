@@ -135,13 +135,14 @@ a {
   }
 }
 
+
 @mixin svg-image($path) {
   background-image: url($path + ".png");
   @include background-image(linear-gradient(transparent, transparent), url("#{$path}.svg"));
 }
 
 .logo {
-  @include svg-image('/images/logo');
+  @include svg-image('../images/logo');
   width: 135px;
   height: 100px;
   background-size: 80%;
