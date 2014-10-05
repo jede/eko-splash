@@ -153,7 +153,10 @@ a {
 .content {
   max-width: 840px;
   @include fancylinks();
-  padding: 3em 4em;
+  padding: 1em 2em;
+  @include screens(medium) {
+    padding: 3em 4em;
+  }
 
   opacity: 1;
   @include transition(opacity 1.2s);
