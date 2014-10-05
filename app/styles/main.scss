@@ -1,0 +1,203 @@
+@import "compass";
+
+@mixin placeholder {
+  &::-webkit-input-placeholder {@content}
+  &:-moz-placeholder           {@content}
+  &::-moz-placeholder          {@content}
+  &:-ms-input-placeholder      {@content}
+}
+
+$linkColor: black;
+$orange: #FF8661;
+
+$break-medium: 650px;
+$break-semi-large: 1200px;
+$break-large: 1550px;
+$break-extra-large: 1700px;
+
+@mixin screens($type) {
+  @if($type == medium) {
+    @media only screen and (min-width: $break-medium) { @content; }
+  }
+  @if($type == semi-large) {
+    @media only screen and (min-width: $break-semi-large) { @content; }
+  }
+  @if($type == large) {
+    @media only screen and (min-width: $break-large) { @content; }
+  }
+  @if($type == extra-large) {
+    @media only screen and (min-width: $break-extra-large) { @content; }
+  }
+}
+
+@mixin fancylinks {
+  a {
+    position: relative;
+    display: inline-block;
+    outline: none;
+    padding: 0 0 0;
+  }
+
+  a::after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: $linkColor;
+    content: '';
+    opacity: 0;
+    -webkit-transition: height 0.3s, opacity 0.3s, -webkit-transform 0.3s;
+    -moz-transition: height 0.3s, opacity 0.3s, -moz-transform 0.3s;
+    transition: height 0.3s, opacity 0.3s, transform 0.3s;
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    transform: translateY(0);
+  }
+
+  a:hover::after,
+  a:focus::after {
+    height: 3px;
+    opacity: 1;
+    -webkit-transform: translateY(4px);
+    -moz-transform: translateY(4px);
+    transform: translateY(4px);
+  }
+}
+
+@each $prefix in ("-moz" "") {
+  ::#{$prefix}selection {
+    color: white;
+    background: $orange;
+    @include text-shadow(none);
+  }
+}
+
+@mixin font-size($size: 20) {
+  $size: $size;
+  font-size: #{$size}px;
+  font-size: #{$size/10}rem;
+}
+
+@mixin line-height($size) {
+  line-height: #{$size}px;
+  line-height: #{$size/10}rem;
+}
+
+@mixin font-weight($grade: normal) {
+  $weight: 400;
+  @if $grade == light {
+    $weight: 300;
+  } @else if $grade == semibold {
+    $weight: 600;
+  } @else if $grade == bold {
+    $weight: 700;
+  }
+  font-weight: $weight;
+}
+
+
+
+html {
+  font-size: 44%;
+  @include screens(medium) { font-size: 55%; }
+  @include screens(semi-large) { font-size: 62.5%; }
+  @include screens(large) { font-size: 70%; }
+}
+
+html,body {
+  height:100%;
+}
+
+body {
+  background: #F7F7F5;
+  font-family: 'Menlo', sans-serif;
+  line-height:1.62;
+  margin:0;
+  padding:0;
+}
+
+body, a, input, button {
+  font-size: 20px;
+  font-size: 2rem;
+  color: rgba(black, .8);
+}
+
+a {
+  font-weight: 800;
+  @include transition(color .3s);
+  text-decoration:none;
+  &:hover {
+    color: black;
+  }
+}
+
+@mixin svg-image($path) {
+  background-image: url($path + ".png");
+  @include background-image(linear-gradient(transparent, transparent), url("#{$path}.svg"));
+}
+
+.logo {
+  @include svg-image('/images/logo');
+  width: 135px;
+  height: 100px;
+  background-size: 80%;
+  background-repeat: no-repeat;
+  text-indent: -99999px;
+}
+
+.content {
+  max-width: 840px;
+  @include fancylinks();
+  padding: 2em 3em;
+}
+
+.sign-up {
+  @include clearfix;
+  margin-top: 3em;
+  margin-bottom: 1em;
+
+  %form-element {
+    padding: 1.2em 2em;
+    outline: none;
+    border: none;
+    text-align: center;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    @include screens(medium) {
+      float: left;
+      width: auto;
+    }
+  }
+  .email {
+    @extend %form-element;
+    background-color: white;
+    min-width: 220px;
+    @include screens(medium) {
+      @include transition(box-shadow .2s);
+      &:active, &:focus {
+        @include box-shadow(0 -4px 0 0px rgba($orange, 1) inset)
+      }
+    }
+  }
+
+  .button {
+    @extend %form-element;
+    background-color: $orange;
+    color: white;
+    cursor: pointer;
+    @include transition(background-color .2s);
+
+    &:hover {
+      background-color: lighten($orange, 5)
+    }
+
+    &:active {
+      background-color: darken($orange, 5)
+    }
+  }
+}
