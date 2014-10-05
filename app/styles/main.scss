@@ -153,7 +153,7 @@ a {
 .content {
   max-width: 840px;
   @include fancylinks();
-  padding: 2em 3em;
+  padding: 3em 4em;
 
   opacity: 1;
   @include transition(opacity 1.2s);
@@ -184,8 +184,8 @@ a {
   .email {
     @extend %form-element;
     background-color: white;
-    min-width: 220px;
     @include screens(medium) {
+      min-width: 370px;
       @include transition(box-shadow .2s);
       &:active, &:focus {
         @include box-shadow(0 -4px 0 0px rgba($orange, 1) inset)
