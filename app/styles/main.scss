@@ -114,15 +114,15 @@ html,body {
 
 body {
   background: #F7F7F5;
-  font-family: 'Menlo', sans-serif;
+  font-family: 'Inconsolata', sans-serif;
   line-height:1.62;
   margin:0;
   padding:0;
 }
 
 body, a, input, button {
-  font-size: 20px;
-  font-size: 2rem;
+  font-size: 22px;
+  font-size: 2.2rem;
   color: rgba(black, .8);
 }
 
@@ -153,7 +153,10 @@ a {
 .content {
   max-width: 840px;
   @include fancylinks();
-  padding: 2em 3em;
+  padding: 1em 2em;
+  @include screens(medium) {
+    padding: 3em 4em;
+  }
 
   opacity: 1;
   @include transition(opacity 1.2s);
@@ -184,8 +187,8 @@ a {
   .email {
     @extend %form-element;
     background-color: white;
-    min-width: 220px;
     @include screens(medium) {
+      min-width: 370px;
       @include transition(box-shadow .2s);
       &:active, &:focus {
         @include box-shadow(0 -4px 0 0px rgba($orange, 1) inset)
